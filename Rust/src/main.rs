@@ -47,6 +47,7 @@ fn day3() {
     println!("Day3: {} {}", sum, sum1);
 }
 
+
 fn day2() {
     let lookup = HashMap::from([
         ('X', 1),

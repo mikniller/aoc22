@@ -22,10 +22,9 @@ internal class Day10
             rh[2] = val;
 
             int posX = (cycle) % 40;
-            int posY = (cycle) / 40;
 
             if (posX == rh[0] || posX == (rh[0] - 1) || posX == (rh[0] + 1))
-                pixels[posX, posY] = '#';
+                pixels[posX, (cycle) / 40] = '#';
 
             cycle++;
 
@@ -39,7 +38,7 @@ internal class Day10
                 tick(Int16.Parse(l.Split(' ')[1]));
             tick(0);
         }
-      //  printCRT(pixels, 40, 6);
+        printCRT(pixels, 40, 6);
         return (strength, "BZPAJELK");
     }
 
