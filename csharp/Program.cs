@@ -1,18 +1,18 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-(int p1, int p2) res1 = Day1.Solve();
-(int p1, int p2) res2 = Day2.Solve();
-(int p1, int p2) res3= Day3.Solve();
-(int p1, int p2) res4= Day4.Solve();
-(string p1, string p2) res5= Day5.Solve();
-(int p1, int p2) res6= Day6.Solve();
-(ulong p1, ulong p2) res7= Day7.Solve();
-(int p1, int p2) res8= Day8.Solve();
-(int p1, int p2) res9= Day9.Solve();
-(int p1, string p2) res10= Day10.Solve();
- (ulong p1, ulong p2) res11= Day11.Solve();
+// (int p1, int p2) res1 = Day1.Solve();
+// (int p1, int p2) res2 = Day2.Solve();
+// (int p1, int p2) res3= Day3.Solve();
+// (int p1, int p2) res4= Day4.Solve();
+// (string p1, string p2) res5= Day5.Solve();
+// (int p1, int p2) res6= Day6.Solve();
+// (ulong p1, ulong p2) res7= Day7.Solve();
+// (int p1, int p2) res8= Day8.Solve();
+// (int p1, int p2) res9= Day9.Solve();
+// (int p1, string p2) res10= Day10.Solve();
+//  (ulong p1, ulong p2) res11= Day11.Solve();
  (int p1, int p2) res12= Day12.Solve();
-// (int p1, int p2) res13= Day13.Solve();
+ //(int p1, int p2) res13= Day13.Solve();
 // (int p1, int p2) res14= Day14.Solve();
 // (int p1, int p2) res15= Day15.Solve();
 // (int p1, int p2) res16= Day16.Solve();
@@ -27,18 +27,18 @@
 // (int p1, int p2) res25= Day25.Solve();
 
 
-Console.WriteLine($"1: {res1.p1} {res1.p2}");
-Console.WriteLine($"2: {res2.p1} {res2.p2}");
-Console.WriteLine($"3: {res3.p1} {res3.p2}");
-Console.WriteLine($"4: {res4.p1} {res4.p2}");
-Console.WriteLine($"5: {res5.p1} {res5.p2}");
-Console.WriteLine($"6: {res6.p1} {res6.p2}");
-Console.WriteLine($"7: {res7.p1} {res7.p2}");
-Console.WriteLine($"8: {res8.p1} {res8.p2}");
-Console.WriteLine($"9: {res9.p1} {res9.p2}");
-Console.WriteLine($"10: {res10.p1} {res10.p2}");
-Console.WriteLine($"11: {res11.p1} {res11.p2}");
- Console.WriteLine($"12: {res12.p1} {res12.p2}");
+// Console.WriteLine($"1: {res1.p1} {res1.p2}");
+// Console.WriteLine($"2: {res2.p1} {res2.p2}");
+// Console.WriteLine($"3: {res3.p1} {res3.p2}");
+// Console.WriteLine($"4: {res4.p1} {res4.p2}");
+// Console.WriteLine($"5: {res5.p1} {res5.p2}");
+// Console.WriteLine($"6: {res6.p1} {res6.p2}");
+// Console.WriteLine($"7: {res7.p1} {res7.p2}");
+// Console.WriteLine($"8: {res8.p1} {res8.p2}");
+// Console.WriteLine($"9: {res9.p1} {res9.p2}");
+// Console.WriteLine($"10: {res10.p1} {res10.p2}");
+// Console.WriteLine($"11: {res11.p1} {res11.p2}");
+  Console.WriteLine($"12: {res12.p1} {res12.p2}");
 // Console.WriteLine($"13: {res13.p1} {res13.p2}");
 // Console.WriteLine($"14: {res14.p1} {res14.p2}");
 // Console.WriteLine($"15: {res15.p1} {res15.p2}");

@@ -1,19 +1,15 @@
 
-using System.Text;
-
 internal class Day12
 {
     private static int rows;
     private static int cols;
-    private static List<(int x,int y)> vecs = new List< (int x,int y) >{(1,0),(-1,0),(0,1),(0,-1)};
-    
+   
     private static int min = Int32.MaxValue;
 
-    private static char[,] hm;
-    private static int[,] mvc;
+    private static (char alt, int visits)[,] map;
 
-    private static (int c,int r) source;
-    private static (int c,int r) target;
+    private static (int x,int y) source;
+    private static (int x,int y) target;
 
     internal static (int, int) Solve()
     {
@@ -22,56 +18,50 @@ internal class Day12
 
          cols = lines[0].Length;
          rows = lines.Count();
-         hm = new char[cols,rows];
-         mvc = new int[cols,rows];
-         for(int r=0;r<rows;r++ ){
-            for(int c=0;c<cols;c++) {
-                hm[c,r]=lines[r][c];
-                if(hm[c,r]=='E') {
-                    hm[c,r]='z';
-                    source = (c,r);
+         map = new (char alt, int visits)[cols,rows];
+
+         for(int y=0;y<rows;y++ ){
+            for(int x=0;x<cols;x++) {
+                map[x,y]=(lines[y][x],Int32.MaxValue);
+
+                if(map[x,y].alt=='E') {
+                    map[x,y].alt='z';
+                    source = (x,y);
                 }
-                if(hm[c,r]=='S') {
-                    hm[c,r]='a';
-                    target= (c,r);
+                if(map[x,y].alt=='S') {
+                    map[x,y].alt='a';
+                    target= (x,y);
                 }
             }
          }   
 
-         climb(source.c,source.r,-1,true);
+         climb(source.x,source.y,0,true);
          int sum1=min;
 
-         // reset stuff
-         mvc = new int[cols,rows];
+        //  // reset stuff
+         for(int r=0;r<rows;r++ )
+            for(int c=0;c<cols;c++) 
+                map[c,r].visits=Int32.MaxValue;
+         
          min=Int32.MaxValue;
 
-         climb(source.c,source.r,-1,false);
+         climb(source.x,source.y,0,false);
 
         return (sum1,min);
     }
 
 
-    private static void climb(int col,int row, int cnt,bool p1) {
-        cnt++;            
+    private static void climb(int x,int y, int cnt,bool p1) {
 
-        if(mvc[col,row]!=0 && mvc[col,row] <= cnt) // other quicker path already passed this cell 
-            return;
-        mvc[col,row] = cnt;    
-
-        if((p1 && col==target.c && row==target.r ) || (!p1 &&  hm[col,row]=='a')) {
+        if((p1 && x==target.x && y==target.y ) || (!p1 &&  map[x,y].alt=='a')) {
             min = Math.Min(min,cnt);
             return;
         }
-        
-        for(int i=0;i<vecs.Count();i++) {
-            int nc=col+vecs[i].x;
-            int nr=row+vecs[i].y;
-            if(nc<cols && nr<rows && nc>=0 && nr >=0 && hm[col,row]<= (hm[nc,nr]+1)) 
-                climb(nc,nr,cnt,p1);  
+        map[x,y].visits = (cnt++); 
+
+        foreach((int x,int y) point in new (int,int)[]{(x+1,y),(x-1,y),(x,y+1),(x,y-1)}) {
+            if(point.x<cols && point.y<rows && point.x>=0 && point.y >=0 && map[point.x,point.y].visits>cnt && map[x,y].alt<=(map[point.x,point.y].alt+1) ) 
+                climb(point.x,point.y,cnt,p1);  
         }
-
     }
-
-
-
 }
