@@ -1,4 +1,6 @@
 
+using System.Diagnostics;
+
 public static class util {
     public const string BasePath = @"d:\dev\aoc\data\";
 //    public const string BasePath = @"c:\users\mini\aoc22\data\";
@@ -24,4 +26,29 @@ public static class util {
     {
 	    return File.ReadAllText($"{BasePath}{fileName}").Trim();
     }
+
+    
+
+
+    public static T Measure<T>(Action setup, Func<T> act, int runs) {
+        T res=default;
+        List<long> mtime=new List<long>();
+        var sw = new Stopwatch();
+        for(int i=0;i<runs;i++) {
+            setup.Invoke();
+            sw.Reset();
+            sw.Start();
+            res = act.Invoke();
+            sw.Stop();
+            mtime.Add(sw.ElapsedMilliseconds);
+        }
+        Console.WriteLine($"Runs {runs}, avg = {mtime.Average()} max={mtime.Max()} min={mtime.Min()} sum={mtime.Sum()}");
+        return res;
+
+
+
+
+    }
+
+
 }

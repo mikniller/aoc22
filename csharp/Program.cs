@@ -11,7 +11,7 @@
 // (int p1, int p2) res9= Day9.Solve();
 // (int p1, string p2) res10= Day10.Solve();
 //  (ulong p1, ulong p2) res11= Day11.Solve();
- (int p1, int p2) res12= Day12.Solve();
+ (int p1, int p2) res12= Day12_2.Solve();
  //(int p1, int p2) res13= Day13.Solve();
 // (int p1, int p2) res14= Day14.Solve();
 // (int p1, int p2) res15= Day15.Solve();
