@@ -11,7 +11,7 @@ internal class Day14
 
     internal static (int, int) Solve()
     {
-        var lines = util.ReadFile("day14_sample.txt").Where(l => String.IsNullOrWhiteSpace(l) == false).ToList();
+        var lines = util.ReadFile("day14.txt").Where(l => String.IsNullOrWhiteSpace(l) == false).ToList();
 
 
         foreach (var l in lines)
@@ -23,15 +23,12 @@ internal class Day14
         }
         maxY = allPoints.SelectMany(p => p).Max(m => m.y);
 
-        setup(true);
-        printCave(cave, 480, 520, 0, maxY + 4);
-        int s1 = run1();
-        printCave(cave, 480, 520, 0, maxY + 4);
-        setup(false);
-        int s2 = run2();
-        printCave(cave, 480, 520, 0, maxY + 4);
+
+        int s1 = util.Measure(setup,true,run1,1);
+        int s2 = util.Measure(setup,false,run2,1);
 
         return (s1, s2);
+
     }
 
 

@@ -23,10 +23,8 @@ internal class Day14_2
         }
         maxY = allPoints.SelectMany(p => p).Max(m => m.y);
 
-        setup(true);
-        int s1 = run1();
-        setup(false);
-        int s2 =run2();
+        int s1 = util.Measure(setup,true,run1,1);
+        int s2 = util.Measure(setup,false,run2,1);
 
         return (s1, s2);
     }
