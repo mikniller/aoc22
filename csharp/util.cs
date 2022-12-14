@@ -2,8 +2,8 @@
 using System.Diagnostics;
 
 public static class util {
-    //public const string BasePath = @"d:\dev\aoc\data\";
-    public const string BasePath = @"c:\users\mini\aoc22\data\";
+    public const string BasePath = @"d:\dev\aoc\data\";
+    //public const string BasePath = @"c:\users\mini\aoc22\data\";
     public static List<string> ReadFile(string fileName,bool skipBlankLines=false, bool consoleOut = false)
     {
 	    var lines =  File.ReadLines($"{BasePath}{fileName}").ToList();
@@ -30,12 +30,12 @@ public static class util {
     
 
 
-    public static T Measure<T>(Action setup, Func<T> act, int runs) {
+    public static T Measure<T>(Action<bool> setup, bool isp1, Func<T> act, int runs) {
         T res=default;
         List<long> mtime=new List<long>();
         var sw = new Stopwatch();
         for(int i=0;i<runs;i++) {
-            setup.Invoke();
+            setup(isp1);
             sw.Reset();
             sw.Start();
             res = act.Invoke();

@@ -37,14 +37,14 @@ internal class Day12_2
                 }
             }
 
-        int res1 = util.Measure(setup, run, 1);
+        int res1 = util.Measure(setup, true,run, 1);
         isp2=true;
-        int res2 =  util.Measure(setup, run, 1);
+        int res2 =  util.Measure(setup, false,run, 1);
 
         return (res1, res2);
     }
 
-    private static void setup()
+    private static void setup(bool isP1)
     {
           for (int x = 0; x < cols; x++) 
             for (int y = 0; y < rows; y++) 

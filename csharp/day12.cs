@@ -39,13 +39,13 @@ internal class Day12
             }
         }
 
-        int res1 = util.Measure(setup, part1, 1);
-        int res2 = util.Measure(setup, part2, 1);
+        int res1 = util.Measure(setup,true, part1, 1);
+        int res2 = util.Measure(setup, false,part2, 1);
 
         return (res1, res2);
     }
 
-    private static void setup()
+    private static void setup(bool isP1)
     {
         min = Int32.MaxValue;
         for (int r = 0; r < rows; r++)
