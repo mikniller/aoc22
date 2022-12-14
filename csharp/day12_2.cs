@@ -37,9 +37,9 @@ internal class Day12_2
                 }
             }
 
-        int res1 = util.Measure(setup, run, 10000);
+        int res1 = util.Measure(setup, run, 1);
         isp2=true;
-        int res2 =  util.Measure(setup, run, 10000);
+        int res2 =  util.Measure(setup, run, 1);
 
         return (res1, res2);
     }
