@@ -1,9 +1,10 @@
 
 using System.Diagnostics;
+using System.Text;
 
 public static class util {
-    public const string BasePath = @"d:\dev\aoc\data\";
-    //public const string BasePath = @"c:\users\mini\aoc22\data\";
+    // public const string BasePath = @"d:\dev\aoc\data\";
+    public const string BasePath = @"c:\users\mini\aoc22\data\";
     public static List<string> ReadFile(string fileName,bool skipBlankLines=false, bool consoleOut = false)
     {
 	    var lines =  File.ReadLines($"{BasePath}{fileName}").ToList();
@@ -48,6 +49,16 @@ public static class util {
 
 
 
+    }
+
+    public static void printCave(char[,] cave, int fromX, int toX, int fromY, int toY)
+    {
+
+        StringBuilder b = new StringBuilder();
+        for (int y = fromY; y < toY; y++, b.AppendLine($"  {y - 1}"))
+            for (int x = fromX; x < toX; x++)
+                b.Append(cave[x, y]);
+        Console.WriteLine(b);
     }
 
 

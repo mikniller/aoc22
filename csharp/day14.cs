@@ -112,14 +112,5 @@ internal class Day14
     }
 
 
-    private static void printCave(char[,] cave, int fromX, int toX, int fromY, int toY)
-    {
-
-        StringBuilder b = new StringBuilder();
-        for (int y = fromY; y < toY; y++, b.AppendLine($"  {y - 1}"))
-            for (int x = fromX; x < toX; x++)
-                b.Append(cave[x, y]);
-        Console.WriteLine(b);
-    }
 
 }
