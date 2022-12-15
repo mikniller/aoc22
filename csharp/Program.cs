@@ -16,7 +16,7 @@
 //  (int p1, int p2) res13= Day13.Solve();
 //  (int p1, int p2) res14= Day14.Solve();
 //  (int p1, int p2) res14_2= Day14_2.Solve();
- (int p1, int p2) res15= Day15.Solve();
+ (int p1, long p2) res15= Day15.Solve();
 // (int p1, int p2) res16= Day16.Solve();
 // (int p1, int p2) res17= Day17.Solve();
 // (int p1, int p2) res18= Day18.Solve();
