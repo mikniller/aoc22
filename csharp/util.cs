@@ -1,6 +1,7 @@
 
 using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 
 public static class util {
      public const string BasePath = @"d:\dev\aoc\data\";
@@ -60,6 +61,26 @@ public static class util {
                 b.Append(cave[x, y]);
         Console.WriteLine(b);
     }
+
+     public static IEnumerable<int> AllIntsInLine(string line, bool onlyPositive)
+     {  
+            string regex = onlyPositive ? "\\d+" : "-?\\d+";
+            var matches = Regex.Matches(line,regex);
+            return matches.Select(m => int.Parse(m.Value));
+     }
+
+    public static int GetHashCode(int[] values)
+    {
+        int result = 0;
+        int shift = 0;
+        for (int i = 0; i < values.Length; i++)
+        {
+            shift = (shift + 11) % 21;
+            result ^= (values[i]+1024) << shift;
+        }
+        return result;
+}
+
 
 
 }
