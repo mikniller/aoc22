@@ -18,8 +18,8 @@
 //  (int p1, int p2) res14_2= Day14_2.Solve();
  // (int p1, long p2) res15= Day15.Solve();
 //(int p1, int p2) res16= Day16.Solve();
- (long p1, long p2) res17= Day17.Solve();
-// (int p1, int p2) res18= Day18.Solve();
+// (long p1, long p2) res17= Day17.Solve();
+ (int p1, int p2) res18= Day18.Solve();
 // (int p1, int p2) res19= Day19.Solve();
 // (int p1, int p2) res20= Day20.Solve();
 // (int p1, int p2) res21= Day21.Solve();
@@ -47,8 +47,8 @@
 //Console.WriteLine($"14_2: {res14_2.p1} {res14_2.p2}");
 // Console.WriteLine($"15: {res15.p1} {res15.p2}");
  //Console.WriteLine($"16: {res16.p1} {res16.p2}");
- Console.WriteLine($"17: {res17.p1} {res17.p2}");
-// Console.WriteLine($"18: {res18.p1} {res18.p2}");
+// Console.WriteLine($"17: {res17.p1} {res17.p2}");
+ Console.WriteLine($"18: {res18.p1} {res18.p2}");
 // Console.WriteLine($"19: {res19.p1} {res19.p2}");
 // Console.WriteLine($"20: {res20.p1} {res20.p2}");
 // Console.WriteLine($"21: {res21.p1} {res21.p2}");
