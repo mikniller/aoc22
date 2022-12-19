@@ -7,10 +7,10 @@ public class Cube {
 
     public bool IsBorder;
 
-  public Cube(int x, int y, int z, bool isborder):this(x,y,z) {
-        
-        IsBorder = isborder;
+    public bool MarkAsConnected = false;
 
+  public Cube(int x, int y, int z, bool isborder):this(x,y,z) {
+        IsBorder = isborder;
     }
 
 
@@ -26,6 +26,11 @@ public class Cube {
         Points.Add((x+1,y,z+1)); //c
     }
 
+    public bool IsSameStartPoint(int x,int y,int z) {
+        return StartPoint.x==x && StartPoint.y==y && StartPoint.z==z;
+
+    }
+
     public bool Adjacant(Cube c) {
         if(c==this)
             return false;
@@ -33,20 +38,19 @@ public class Cube {
         return c.Points.Intersect(Points).Count()==4;
     }
 
-    public int AdjacantCount(List<Cube> cubes) {
+    public int AdjacantCount(IEnumerable<Cube> cubes) {
         return cubes.Count(c => c.Adjacant(this));
     }
 
-    public int NotAdjacantCount(List<Cube> cubes) {
+    public int NotAdjacantCount(IEnumerable<Cube> cubes) {
         
         return 6-cubes.Count(c => c.Adjacant(this));
     }
 
-    public void Print() {
-       Console.WriteLine($"{StartPoint.x},{StartPoint.y},{StartPoint.z} {IsBorder}");
+     public override string ToString() {
+       return ($"{StartPoint.x},{StartPoint.y},{StartPoint.z} {IsBorder} {MarkAsConnected}");
 
     }
-
 }
 
 internal class Day18
@@ -55,7 +59,7 @@ internal class Day18
     public static List<Cube> holes = new List<Cube>();
     internal static (int, int) Solve()
     {
-         var lines = util.ReadFile("day18_sample.txt").Where(l => String.IsNullOrWhiteSpace(l) == false).ToList();
+         var lines = util.ReadFile("day18.txt").Where(l => String.IsNullOrWhiteSpace(l) == false).ToList();
 
          foreach(var l in lines) {
             var c= l.Split(',');
@@ -76,23 +80,30 @@ internal class Day18
         // find missing cubes.
         for(int x=minx;x<=maxx;x++)
             for(int y=miny;y<=maxy;y++)
-                for(int z=minz;z<=maxz;z++) 
-                    if(cubes.Any(c => c.StartPoint==(x,y,z)==false) ) 
+                for(int z=minz;z<=maxz;z++) {
+                    var existing = cubes.FirstOrDefault(c => c.IsSameStartPoint(x,y,z));
+                    if(existing==null) {
                         holes.Add(new Cube(x,y,z,(x==minx || y==miny || z==minz || x==maxx || y==maxy || z==maxz) ));
+                    }
+                }
 
+     
+        foreach(var h in holes.Where(h => h.IsBorder)) {
+            h.MarkAsConnected = true;
+            MarkAsConnected(h,holes);
+        }
+
+        var trappedList = holes.Where(h => h.MarkAsConnected==false);    
+        int v2 = v1 - cubes.Sum(c => c.AdjacantCount(trappedList));
         
-        foreach(var h in holes)
-            h.Print();
+        return (v1,v2);
+    }
 
-       
-
-
+    public static void MarkAsConnected(Cube c, List<Cube> all) {
         
-        
-        return (v1,0);
-
-        
-        
-
+        foreach(var cc in all.Where(a => a.MarkAsConnected==false &&  a.Adjacant(c) )) {
+            cc.MarkAsConnected = true;
+            MarkAsConnected(cc,all);
+        }
     }
 }
