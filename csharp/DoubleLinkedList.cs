@@ -22,36 +22,92 @@ namespace DLL
     {
 
         public Node<T> head = null;
-
         public Node<T> tail = null;
 
         public int size;
 
+        public DoubleLinkedList() {
+        }
 
-        public Node<T> forward(Node<T>  n, int count) {
+        public DoubleLinkedList(IEnumerable<T> list) {
+            foreach(var n in list) {
+                InsertEnd(new Node<T>(n));
+            }    
+
+        }
+
+
+        public void InsertFront(Node<T> node) {
+            if(head!=null)
+                head.prev=node;
+            node.next=head;
+            head=node;    
+
+            if(tail==null)
+                tail = node;
+
+            size++;    
+        }
+
+        public void InsertEnd(Node<T> node) {
+            if(tail==null)
+                InsertFront(node);
+            else {
+                tail.next = node;
+                node.next = null;
+                node.prev=tail;
+                tail=node;
+            }
+            size++;
+        }
+
+        public Node<T> Remove(Node<T> n) {
+           if(n.prev!=null && n.next!=null) {
+
+                n.prev.next = n.next;
+                n.next.prev = n.prev;
+           }
+           if(n==head) {
+                head = n.next;
+                n.next.prev = null;
+           } 
+           if(n==tail) {
+                n.prev.next = null;
+                tail = n.prev;
+           }
+
+           n.next = null;
+           n.prev = null;
+           size--;  
+           return n;
+        }     
+
+        public Node<T> AddAfter(Node<T> afterNode, Node<T> toBeInserted) {
+             if(afterNode==tail) {
+                afterNode.next = toBeInserted;
+                toBeInserted.prev = afterNode;
+                tail = toBeInserted;
+             }   else {
+                 afterNode.next.prev=toBeInserted;
+                 toBeInserted.next = afterNode.next;
+                 afterNode.next = toBeInserted;
+                 toBeInserted.prev = afterNode;   
+             }
+             size++;
+             return toBeInserted;
+        }
+
+        
+        public Node<T> Forward(Node<T>  n, int count) {
                 
-                var node=n;
-                
-                for(int i=0;i<count;i++) {                
-                if(node==tail || node.next==null)
+            var node=n;
+            for(int i=0;i<count;i++) {                
+                if(node.next==null)
                     node=head;
                  else node = node.next;   
                 }
                 return node;
-
         }
-
-        public Node<T> back(Node<T>  n, int count) {
-                var node = n;
-                for(int i=0;i<count;i++) {                
-                if(node==head || node.prev==null)
-                    node=tail;
-                 else node = node.prev;   
-                }
-               return node;
-            
-        }
-
 
         public IEnumerable<Node<T>> AsList()
         {
@@ -60,127 +116,13 @@ namespace DLL
             {
                 yield return tmp;
                 tmp = tmp.next;
-            } while(tmp != tail);
-             yield return tail;
-        }
-
-        public void from_list(List<T> list)
-        {
-            foreach (var t in list)
-            {
-                insert_at_tail (t);
-            }
-        }
-
-        public void from_list_reversed(List<T> list)
-        {
-            foreach (var t in list)
-            {
-                insert_at_head (t);
-            }
-        }
-
-        public void insert_at_head(T value)
-        {
-            insert_at_head(new Node<T>(value));
-        }
-
-        public void insert_at_head(Node<T> n)
-        {
-            n.next = head;
-
-            if (head != null)
-            {
-                head.prev = n;
-            }
-            head = n;
-            if (head.next == null) tail = head;
-            size++;
-         
-        }
-
-        public void insert_at_tail(T value)
-        {
-            insert_at_tail(new Node<T>(value));
-        }
-
-        public void insert_at_tail(Node<T> n)
-        {
-            if (head == null)
-            {
-                insert_at_head (n);
-                return;
-            }
-            tail.next=n;
-            n.prev=tail;
-            tail=n;
-            size++;
-
-        
+            } while(tmp != null);
         }
 
 
-        public void Remove(Node<T> node)
-        {
-            if (node.prev != null) node.prev.next = node.next;
-            if (node.next != null)
-            {
-                node.next.prev = node.prev;
-                tail = node.prev;
-            }
-            if (size > 0) size--;
-        }
 
-        public void MoveToBefore(Node<T> before, Node<T> node)
-        {
-            InsertBetween(before.prev,before,node);
-       }
+      
 
-        public void MoveAfter(Node<T> after, Node<T> node)
-        {
-            InsertBetween(after,after.next,node);
-        }
-
-
-        private void InsertBetween(Node<T> a, Node<T> b, Node<T> node) 
-        {
-           
-            
-            // fiurst take it out
-            bool isTail = node==tail;
-            bool isHead = node==head;
-
-
-           // update refs
-           if(node.prev!=null) {
-                node.prev.next = node.next;
-                if(isTail)
-                    tail = node.prev;  
-           }
-           
-           if(node.next!=null)  {
-                node.next.prev=node.prev;     
-                if(isHead) 
-                    head = node.next;
-                }
-
-            // then insert it again
-
-            node.prev=a;
-            node.next=b;
-
-            if(a!=null)
-                a.next=node;
-            else 
-                head=node;    
-            
-            if(b!=null)    
-                b.prev=node;
-            else 
-                tail=node;    
-            
-           
-        } 
 
         public string Print(Node<T> highlight)
         {
@@ -191,9 +133,7 @@ namespace DLL
                 b.Append($"{(temp == head ? "[H]" : "")} {temp.data.ToString()} {(highlight==temp ? "*" : "")}  --> ");
                 temp = temp.next;
             }
-            while (temp != tail);
-            if(tail!=null)
-                b.Append($"[T] {temp.data.ToString()}  -->  {(temp.next==head ? "[H]" : "null")} ");
+            while (temp != null);
 
             return b.ToString();
         }
