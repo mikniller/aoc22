@@ -4,8 +4,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 public static class util {
-     public const string BasePath = @"d:\dev\aoc\data\";
-//    public const string BasePath = @"c:\users\mini\aoc22\data\";
+//     public const string BasePath = @"d:\dev\aoc\data\";
+    public const string BasePath = @"c:\users\mini\aoc22\data\";
     public static List<string> ReadFile(string fileName,bool skipBlankLines=false, bool consoleOut = false)
     {
 	    var lines =  File.ReadLines($"{BasePath}{fileName}").ToList();
