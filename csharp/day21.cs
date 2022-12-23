@@ -31,8 +31,8 @@ internal class Day21
 
     internal static (long, long) Solve()
     {
-       long r1=util.Measure(Setup,true,P1,1);     
-       long r2=util.Measure(Setup,false,P2,1);     
+       long r1=util.Measure(Setup,true,P1,5);     
+       long r2=util.Measure(Setup,false,P2,5);     
        return (r1,r2);
     }
 
@@ -156,9 +156,6 @@ internal class Day21
         }
     }
 
-
-
-
     public static bool HasHuman(Monkey start)
     {
         Queue<Monkey> q = new Queue<Monkey>();
@@ -176,7 +173,4 @@ internal class Day21
         }
         return false;
     }
-
-    
-
 }

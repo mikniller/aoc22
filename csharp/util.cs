@@ -29,9 +29,6 @@ public static class util {
 	    return File.ReadAllText($"{BasePath}{fileName}").Trim();
     }
 
-    
-
-
     public static T Measure<T>(Action<bool> setup, bool isp1, Func<T> act, int runs) {
         T res=default;
         List<long> mtime=new List<long>();
@@ -46,10 +43,6 @@ public static class util {
         }
         Console.WriteLine($"Runs {runs}, avg = {mtime.Average()} max={mtime.Max()} min={mtime.Min()} sum={mtime.Sum()}");
         return res;
-
-
-
-
     }
 
     public static void printCave(char[,] cave, int fromX, int toX, int fromY, int toY)
