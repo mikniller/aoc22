@@ -41,7 +41,7 @@ public static class util {
             sw.Stop();
             mtime.Add(sw.ElapsedMilliseconds);
         }
-        Console.WriteLine($"Runs {runs}, avg = {mtime.Average()} max={mtime.Max()} min={mtime.Min()} sum={mtime.Sum()}");
+        Console.WriteLine($"Runs {runs}, avg = {mtime.Average()} max={mtime.Max()} min={mtime.Min()} sum={mtime.Sum()} => res {res}");
         return res;
     }
 
