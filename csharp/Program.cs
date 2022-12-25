@@ -25,8 +25,8 @@
  // (long p1, long p2) res21= Day21.Solve();
  //(int p1, int p2) res22= Day22.Solve();
 // (int p1, int p2) res23= Day23.Solve();
- (int p1, int p2) res24= Day24.Solve();
-// (int p1, int p2) res25= Day25.Solve();
+// (int p1, int p2) res24= Day24.Solve();
+ (string p1, string p2) res25= Day25.Solve();
 
 
 // Console.WriteLine($"1: {res1.p1} {res1.p2}");
@@ -54,7 +54,7 @@
  // Console.WriteLine($"21: {res21.p1} {res21.p2}");
  // Console.WriteLine($"22: {res22.p1} {res22.p2}");
 //  Console.WriteLine($"23: {res23.p1} {res23.p2}");
- Console.WriteLine($"24: {res24.p1} {res24.p2}");
-// Console.WriteLine($"25: {res25.p1} {res25.p2}");
+ //Console.WriteLine($"24: {res24.p1} {res24.p2}");
+Console.WriteLine($"25: {res25.p1} {res25.p2}");
 
 
