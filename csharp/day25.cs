@@ -41,19 +41,17 @@ class Snafu {
         while(value!=0) { 
             long rem = value % BASE_NUMBER;
             if(rem==3) {
-                snafuStr += '='; value+=BASE_NUMBER;
+                snafuStr = "=" + snafuStr; value+=BASE_NUMBER;
             } 
             else if(rem==4) {
-                snafuStr += '-'; value+=5;
+                snafuStr = "-"+snafuStr; value+=BASE_NUMBER;
             }
             else {
-                snafuStr += ""+rem;
+                snafuStr = rem+""+snafuStr;
             }
             value/=BASE_NUMBER;
         }
-        var reversed = snafuStr.ToCharArray().Reverse();
-
-        return string.Join("",reversed);
+        return snafuStr;
     }
 
     public string print() {
