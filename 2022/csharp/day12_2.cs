@@ -79,6 +79,20 @@ internal class Day12_2 : SolveDay
     return-1;
     }
 
-}
+        public override string SolvePart1()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string SolvePart2()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Setup(bool isPart1)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
