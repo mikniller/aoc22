@@ -8,77 +8,66 @@ internal class Day21 : SolveDay
 
     static Dictionary<string, Monkey> Monkeys;
 
-    internal static (long, long) Solve()
-    {
-       long r1=util.Measure(Setup,true,P1,5);     
-       long r2=util.Measure(Setup,false,P2,5);     
-       return (r1,r2);
-    }
 
-
-    public static void Setup(bool p1) {
-        Monkeys = new Dictionary<string, Monkey>();
-        List<string> lines = util.ReadFile("day21.txt").Where(l => String.IsNullOrWhiteSpace(l) == false).ToList();
-        foreach (var l in lines)
+        public override string SolvePart1()
         {
-            Monkey m = new Monkey();
-            var parts = l.Split(' ');
-            m.Name = parts[0].Replace(":", "");
-            m.Val = parts.Length == 2 ? Int32.Parse(parts[1].Trim()) : 0;
-            m.LeftNode = parts.Length > 2 ? parts[1].Trim() : "";
-            m.RightNode = parts.Length > 2 ? parts[3].Trim() : "";
-            m.Operand = parts.Length > 2 ? parts[2].Trim()[0] : ' ';
-            m.IsHuman = m.Name == "humn";
-            m.IsRoot = m.Name == "root";
-            Monkeys.Add(m.Name, m);
+            Calc(OrderMonkeys());
+
+            return Monkeys["root"].Val + "";
         }
-    }
 
-    static long P1()
-    {
-        Calc(OrderMonkeys());
-
-        return Monkeys["root"].Val;
-    }
-
-    // Hmm, gives 3 results ? rounding error ?
-    // valToTry = 3093175982597;
-    // valToTry = 3093175982596;
-    // valToTry = 3093175982595;
-    static long P2()
-    {
-        var monkeys = OrderMonkeys();
-        // is humn in left or right branch ?;
-        Monkey root = Monkeys["root"];
-        var LeftNode = Monkeys[root.LeftNode];
-        var RightNode = Monkeys[root.RightNode];
-        bool isLeft = HasHuman(Monkeys[root.LeftNode]);
-        Calc(monkeys);
-        long ValToSearchFor = isLeft ? RightNode.Val : LeftNode.Val;
-        var NodeToMatch = isLeft ? LeftNode : RightNode;
-        var human = Monkeys["humn"];
-
-        (long low, long high) mid = (0, 9999999999999);
-
-        while (ValToSearchFor != NodeToMatch.Val)
+        public override string SolvePart2()
         {
-            long valToTry = (mid.Item1 + mid.Item2) / 2; // center;
-            human.Val = valToTry;
-
+            var monkeys = OrderMonkeys();
+            // is humn in left or right branch ?;
+            Monkey root = Monkeys["root"];
+            var LeftNode = Monkeys[root.LeftNode];
+            var RightNode = Monkeys[root.RightNode];
+            bool isLeft = HasHuman(Monkeys[root.LeftNode]);
             Calc(monkeys);
-            //    Console.WriteLine($"Trying {human.Val} gave {NodeToMatch.Val} diff = {NodeToMatch.Val - ValToSearchFor}");
+            long ValToSearchFor = isLeft ? RightNode.Val : LeftNode.Val;
+            var NodeToMatch = isLeft ? LeftNode : RightNode;
+            var human = Monkeys["humn"];
 
-            if (NodeToMatch.Val - ValToSearchFor > 0)
-                mid.low = valToTry + 1;
-            else
-                mid.high = valToTry;
+            (long low, long high) mid = (0, 9999999999999);
+
+            while (ValToSearchFor != NodeToMatch.Val)
+            {
+                long valToTry = (mid.Item1 + mid.Item2) / 2; // center;
+                human.Val = valToTry;
+
+                Calc(monkeys);
+                //    Console.WriteLine($"Trying {human.Val} gave {NodeToMatch.Val} diff = {NodeToMatch.Val - ValToSearchFor}");
+
+                if (NodeToMatch.Val - ValToSearchFor > 0)
+                    mid.low = valToTry + 1;
+                else
+                    mid.high = valToTry;
+            }
+
+            return human.Val + "";
         }
 
-        return human.Val;
-    }
+        public override void Setup(bool isPart1)
+        {
+            Monkeys = new Dictionary<string, Monkey>();
+            foreach (var l in _linesWithoutBlank)
+            {
+                Monkey m = new Monkey();
+                var parts = l.Split(' ');
+                m.Name = parts[0].Replace(":", "");
+                m.Val = parts.Length == 2 ? Int32.Parse(parts[1].Trim()) : 0;
+                m.LeftNode = parts.Length > 2 ? parts[1].Trim() : "";
+                m.RightNode = parts.Length > 2 ? parts[3].Trim() : "";
+                m.Operand = parts.Length > 2 ? parts[2].Trim()[0] : ' ';
+                m.IsHuman = m.Name == "humn";
+                m.IsRoot = m.Name == "root";
+                Monkeys.Add(m.Name, m);
+            }
+        }
 
 
-    public static List<Monkey> OrderMonkeys(string startMonkey = "root")
+        public  List<Monkey> OrderMonkeys(string startMonkey = "root")
     {
 
         Queue<Monkey> q = new Queue<Monkey>();
@@ -112,7 +101,7 @@ internal class Day21 : SolveDay
     }
 
     // requires ordered monkey list
-    static void Calc(List<Monkey> monkeys)
+    void Calc(List<Monkey> monkeys)
     {
         // calculate all.
         foreach (var monkey in monkeys)
@@ -135,7 +124,7 @@ internal class Day21 : SolveDay
         }
     }
 
-    public static bool HasHuman(Monkey start)
+    static bool HasHuman(Monkey start)
     {
         Queue<Monkey> q = new Queue<Monkey>();
         q.Enqueue(start);
@@ -152,7 +141,8 @@ internal class Day21 : SolveDay
         }
         return false;
     }
-}
+
+    }
 
 public class Monkey
 {

@@ -1,8 +1,10 @@
+using Aoc.Common;
+
 namespace Aac._2022
 {
     internal class Day25 : SolveDay
     {
-        public Day24(int year) :  base(year)
+        public Day25(int year) :  base(year)
         {
         }
 
@@ -10,7 +12,7 @@ namespace Aac._2022
 
         public override void Setup(bool IsP1)
         {
-            Snafus = _content.Select(l => new Snafu(l)).ToList();
+            Snafus = _lines.Select(l => new Snafu(l)).ToList();
         }
 
         public override string SolvePart1()
