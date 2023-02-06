@@ -1,13 +1,10 @@
 using Aoc.Common;
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day9 : SolveDay
+    internal class Day9 : SolveDay2022
     {
 
         Func<Int32, Int32> sign = (i) => i == 0 ? 0 : (i < 0) ? -1 : 1;
-        public Day9(int year) : base(year) { }
-
-
         public override string SolvePart1()
         {
             return Solve(2) + "";
@@ -18,12 +15,6 @@ namespace Aac._2022
             return Solve(10) + "";
 
         }
-
-        public override void Setup(bool isPart1)
-        {
-
-        }
-
 
 
         internal int Solve(int knotCount)
@@ -70,6 +61,8 @@ namespace Aac._2022
             }
             return seen.Count;
         }
+
+        public override bool IsReady() => true;
     }
 
 }

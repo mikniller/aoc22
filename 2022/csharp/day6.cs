@@ -1,11 +1,8 @@
 using Aoc.Common;
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day6 : SolveDay
+    internal class Day6 : SolveDay2022
     {
-        public Day6(int year) : base(year) { }
-
-
         public override string SolvePart1()
         {
             int i = 3;
@@ -39,6 +36,8 @@ namespace Aac._2022
         public override void Setup(bool isPart1)
         {
         }
+        public override bool IsReady() => true;
+
     }
 
 }

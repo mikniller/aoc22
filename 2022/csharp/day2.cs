@@ -1,8 +1,8 @@
 using Aoc.Common;
 
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day2 : SolveDay
+    internal class Day2 : SolveDay2022
     {
         Dictionary<char, int> lookup = new Dictionary<char, int>
         {
@@ -36,9 +36,6 @@ namespace Aac._2022
             { "C Z", "C X" }
         };
 
-        public Day2(int year)
-            : base(year) { }
-
         public override string SolvePart1()
         {
             return _lines.Select(c => lookup[c[2]] + res[c]).Sum() + "";
@@ -50,5 +47,8 @@ namespace Aac._2022
         }
 
         public override void Setup(bool isPart1) { }
+
+        public override bool IsReady() => true;
+
     }
 }

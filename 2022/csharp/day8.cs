@@ -1,10 +1,8 @@
 using Aoc.Common;
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day8 : SolveDay
+    internal class Day8 : SolveDay2022
     {
-        public Day8(int year) : base(year) { }
-
         (short v, bool b, int sum)[,] vals;
         int rows;
         int cols;
@@ -110,6 +108,8 @@ namespace Aac._2022
                 }
             }
         }
+
+        public override bool IsReady() => true;
 
     }
 

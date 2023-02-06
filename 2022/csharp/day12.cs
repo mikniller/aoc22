@@ -1,8 +1,7 @@
 using Aoc.Common;
-namespace Aac._2022 {
-    internal class Day12 : SolveDay
+namespace Aoc._2022 {
+    internal class Day12 : SolveDay2022
     {
-        public Day12(int year) : base(year) { }
         private int rows;
         private int cols;
 
@@ -59,7 +58,7 @@ namespace Aac._2022 {
                     map[c, r].visits = Int32.MaxValue;
         }
 
-
+        public override bool IsReady() => true;
 
 
         private void climb(int x, int y, int cnt, bool p1)

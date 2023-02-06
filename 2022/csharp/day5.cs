@@ -1,11 +1,29 @@
 using System.Text.RegularExpressions;
 using Aoc.Common;
 
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day5 : SolveDay
+    internal class Day5 : SolveDay2022
     {
-        public Day5(int year) : base(year) { }
+       
+
+        public override string SolvePart1()
+        {
+            return Solve(1) + "";
+
+        }
+
+        public override string SolvePart2()
+        {
+            return Solve(2) + "";
+        }
+
+        public override void Setup(bool isPart1)
+        {
+
+        }
+
+        public override bool IsReady() => true;
 
         private string Solve(int part)
         {
@@ -39,21 +57,6 @@ namespace Aac._2022
             return string.Join("", stack.Select(s => s.Peek()));
         }
 
-        public override string SolvePart1()
-        {
-            return Solve(1) + "";
-
-        }
-
-        public override string SolvePart2()
-        {
-            return Solve(2) + "";
-        }
-
-        public override void Setup(bool isPart1)
-        {
-
-        }
     }
 
 }

@@ -1,19 +1,18 @@
 
 using Aoc.Common;
-namespace Aac._2022 {
-internal class Day20 : SolveDay
+namespace Aoc._2022
 {
-
-    public Day20(int year) : base(year) {}
-    DoubleLinkedList<long> dll;
-    int nodeCount = 0;
-    List<Node<long>> nodeList;
+    internal class Day20 : SolveDay2022
+    {
+        DoubleLinkedList<long> dll;
+        int nodeCount = 0;
+        List<Node<long>> nodeList;
 
         public override string SolvePart1()
         {
             DoShiftNumbers();
 
-            return ExtractResult()+"";
+            return ExtractResult() + "";
         }
 
         public override string SolvePart2()
@@ -21,9 +20,9 @@ internal class Day20 : SolveDay
             for (int i = 0; i < 10; i++)
                 DoShiftNumbers();
 
-            return ExtractResult()+"";
+            return ExtractResult() + "";
         }
-    
+
 
         public override void Setup(bool isPart1)
         {
@@ -33,6 +32,8 @@ internal class Day20 : SolveDay
             nodeList = dll.AsList().ToList();
             nodeCount = nodeList.Count - 1;
         }
+
+        public override bool IsReady() => true;
 
 
         private void DoShiftNumbers()
@@ -51,7 +52,7 @@ internal class Day20 : SolveDay
                 var target = dll.Forward(n, (int)moveforward);
                 dll.Remove(n);
                 dll.AddAfter(target, n);
-                //    Console.WriteLine(dll.Print(n));
+                //    base.WriteLine(dll.Print(n));
             }
         }
 
@@ -74,7 +75,7 @@ internal class Day20 : SolveDay
             return val1 + val2 + val3;
         }
 
-      
+
     }
 
 }

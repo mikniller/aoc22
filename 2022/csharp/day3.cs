@@ -1,12 +1,9 @@
 using Aoc.Common;
 
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day3 : SolveDay
+    internal class Day3 : SolveDay2022
     {
-        public Day3(int year)
-            : base(year) { }
-
         Func<char, int> score = (c) => c < 'a' ? c - 'A' + 27 : c - 'a' + 1;
 
         public override string SolvePart1()
@@ -32,5 +29,8 @@ namespace Aac._2022
         }
 
         public override void Setup(bool isPart1) { }
+
+        public override bool IsReady() => true;
+
     }
 }

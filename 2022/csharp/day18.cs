@@ -1,21 +1,15 @@
 using Aoc.Common;
-namespace Aac._2022 {
-
-
-internal class Day18 : SolveDay
+namespace Aoc._2022
 {
-    public Day18(int year) : base(year) {}
-    public List<Cube> cubes = new List<Cube>();
-    public List<Cube> holes = new List<Cube>();
-    int freeEdgeSum = 0;
- 
-    public static void MarkAsConnected(Cube c, List<Cube> all) {
-        
-        foreach(var cc in all.Where(a => a.MarkAsConnected==false &&  a.Adjacant(c) )) {
-            cc.MarkAsConnected = true;
-            MarkAsConnected(cc,all);
-        }
-    }
+
+
+    internal class Day18 : SolveDay2022
+    {
+        public List<Cube> cubes = new List<Cube>();
+        public List<Cube> holes = new List<Cube>();
+        int freeEdgeSum = 0;
+
+
 
         public override string SolvePart1()
         {
@@ -71,6 +65,20 @@ internal class Day18 : SolveDay
 
             freeEdgeSum = cubes.Sum(c => c.NotAdjacantCount(cubes));
         }
+
+        public override bool IsReady() => true;
+
+
+        public static void MarkAsConnected(Cube c, List<Cube> all)
+        {
+
+            foreach (var cc in all.Where(a => a.MarkAsConnected == false && a.Adjacant(c)))
+            {
+                cc.MarkAsConnected = true;
+                MarkAsConnected(cc, all);
+            }
+        }
+
     }
 
 

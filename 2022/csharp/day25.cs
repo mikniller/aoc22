@@ -1,13 +1,9 @@
 using Aoc.Common;
 
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day25 : SolveDay
+    internal class Day25 : SolveDay2022
     {
-        public Day25(int year) :  base(year)
-        {
-        }
-
         public List<Snafu> Snafus;
 
         public override void Setup(bool IsP1)
@@ -25,6 +21,9 @@ namespace Aac._2022
         {
             return "Done!";
         }
+
+        public override bool IsReady() => true;
+
     }
 
     class Snafu
@@ -61,7 +60,7 @@ namespace Aac._2022
                     long res = 0;
                     for (int i = 0; i < SnafuValues.Count(); i++)
                     {
-                        res += (long) Math.Pow(BASE_NUMBER, i) * SnafuValues[i];
+                        res += (long)Math.Pow(BASE_NUMBER, i) * SnafuValues[i];
                     }
                     _asLong = res;
                 }

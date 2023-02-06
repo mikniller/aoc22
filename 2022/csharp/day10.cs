@@ -1,15 +1,13 @@
 using Aoc.Common;
 using System.Text;
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day10 : SolveDay
+    internal class Day10 : SolveDay2022
     {
 
         int cycle = 0;
         int[] rh = new int[3] { 0, 1, 0 };
         char[,] pixels;
-        public Day10(int year) : base(year) { }
-
 
         public override string SolvePart1()
         {
@@ -60,16 +58,15 @@ namespace Aac._2022
                 for (int j = 0; j < 6; j++)
                     pixels[i, j] = '.';
         }
+        public override bool IsReady() => true;
 
-
-
-        public static void printCRT(char[,] pixels, int width, int height)
+        public void printCRT(char[,] pixels, int width, int height)
         {
             StringBuilder builder = new StringBuilder();
             for (int y = 0; y < height; y++, builder.AppendLine())
                 for (int x = 0; x < width; x++)
                     builder.Append(pixels[x, y]);
-            Console.Write(builder.ToString());
+            GetWriter().Write(builder.ToString());
         }
 
 

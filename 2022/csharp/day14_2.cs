@@ -1,10 +1,9 @@
 using Aoc.Common;
 
-namespace Aac._2022 {
-    internal class Day14_2 : SolveDay
+namespace Aoc._2022
+{
+    internal class Day14_2 : SolveDay2022
     {
-        public Day14_2(int year) : base(year) { }
-
         HashSet<(int x, int y)> vals = new HashSet<(int x, int y)>();
         List<List<(int x, int y)>> allPoints = new List<List<(int x, int y)>>();
         int maxY;
@@ -76,6 +75,9 @@ namespace Aac._2022 {
             if (!isPart1)
                 addLine((0, maxY + 2), (999, maxY + 2));
         }
+
+        public override bool IsReady() => true;
+
 
         private void addLine((int x, int y) from, (int x, int y) to)
         {

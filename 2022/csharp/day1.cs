@@ -1,14 +1,9 @@
 using Aoc.Common;
 
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day1 : SolveDay
+    internal class Day1 : SolveDay2022
     {
-        public Day1(int year) :
-            base(year)
-        {
-        }
-
         public override string SolvePart1() {
             return Calculate().Max()+"";
         }
@@ -38,6 +33,8 @@ namespace Aac._2022
 
         public override void Setup(bool isPart1) {
         }
+
+        public override bool IsReady() => true;
 
     }
 }

@@ -2,30 +2,11 @@
 using System.Text;
 using Aoc.Common;
 
-namespace Aac._2022 {
-internal class Day16 : SolveDay
+namespace Aoc._2022
 {
-
-    public Day16(int year) : base(year) {}
-    internal static (int, int) Solve()
+    internal class Day16 : SolveDay2022
     {
-        return (0, 0);
-    }
 
-        public override void Setup(bool isPart1)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string SolvePart1()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string SolvePart2()
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

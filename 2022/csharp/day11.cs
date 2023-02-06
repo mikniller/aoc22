@@ -1,15 +1,11 @@
 using Aoc.Common;
 
-namespace Aac._2022
+namespace Aoc._2022
 {
-
-
-    internal class Day11 : SolveDay
+    internal class Day11 : SolveDay2022
     {
         List<Monkey> monkeys = new List<Monkey>();
         ulong divisorSum = 1;
-
-        public Day11(int year) : base(year) { }
 
         public override string SolvePart1()
         {
@@ -40,6 +36,8 @@ namespace Aac._2022
                 }
             }
         }
+
+        public override bool IsReady() => true;
 
 
         internal ulong Solve(ulong div, int rounds)

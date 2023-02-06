@@ -1,12 +1,11 @@
 
 using Aoc.Common;
-namespace Aac._2022 {
-
-internal class Day21 : SolveDay
+namespace Aoc._2022
 {
-    public Day21(int year) : base(year) {}
 
-    static Dictionary<string, Monkey> Monkeys;
+    internal class Day21 : SolveDay2022
+    {
+        static Dictionary<string, Monkey> Monkeys;
 
 
         public override string SolvePart1()
@@ -37,7 +36,7 @@ internal class Day21 : SolveDay
                 human.Val = valToTry;
 
                 Calc(monkeys);
-                //    Console.WriteLine($"Trying {human.Val} gave {NodeToMatch.Val} diff = {NodeToMatch.Val - ValToSearchFor}");
+                //    base.WriteLine($"Trying {human.Val} gave {NodeToMatch.Val} diff = {NodeToMatch.Val - ValToSearchFor}");
 
                 if (NodeToMatch.Val - ValToSearchFor > 0)
                     mid.low = valToTry + 1;
@@ -66,108 +65,109 @@ internal class Day21 : SolveDay
             }
         }
 
+        public override bool IsReady() => true;
 
-        public  List<Monkey> OrderMonkeys(string startMonkey = "root")
-    {
-
-        Queue<Monkey> q = new Queue<Monkey>();
-        List<Monkey> inOrder = new List<Monkey>();
-
-        Action<string> tryMonkey = (name) =>
+        public List<Monkey> OrderMonkeys(string startMonkey = "root")
         {
-            if (name == "")
-                return;
-            var mon = Monkeys[name];
-            if (!mon.Seen)
+
+            Queue<Monkey> q = new Queue<Monkey>();
+            List<Monkey> inOrder = new List<Monkey>();
+
+            Action<string> tryMonkey = (name) =>
             {
-                q.Enqueue(mon);
-                mon.Seen = true;
-            }
-        };
-
-        q.Enqueue(Monkeys[startMonkey]);
-        while (q.Any())
-        {
-            var m = q.Dequeue();
-            inOrder.Add(m);
-            tryMonkey(m.LeftNode);
-            tryMonkey(m.RightNode);
-        }
-        inOrder.Reverse();
-
-
-
-        return inOrder;
-    }
-
-    // requires ordered monkey list
-    void Calc(List<Monkey> monkeys)
-    {
-        // calculate all.
-        foreach (var monkey in monkeys)
-        {
-            if (monkey.Operand == ' ')
-                continue; // nothing to calc.
-            var lm = Monkeys[monkey.LeftNode];
-            var rm = Monkeys[monkey.RightNode];
-
-
-            monkey.Val = monkey.Operand switch
-            {
-                '*' => lm.Val * rm.Val,
-                '+' => lm.Val + rm.Val,
-                '-' => lm.Val - rm.Val,
-                '/' => lm.Val / rm.Val,
-                _ => monkey.Val
+                if (name == "")
+                    return;
+                var mon = Monkeys[name];
+                if (!mon.Seen)
+                {
+                    q.Enqueue(mon);
+                    mon.Seen = true;
+                }
             };
 
+            q.Enqueue(Monkeys[startMonkey]);
+            while (q.Any())
+            {
+                var m = q.Dequeue();
+                inOrder.Add(m);
+                tryMonkey(m.LeftNode);
+                tryMonkey(m.RightNode);
+            }
+            inOrder.Reverse();
+
+
+
+            return inOrder;
         }
-    }
 
-    static bool HasHuman(Monkey start)
-    {
-        Queue<Monkey> q = new Queue<Monkey>();
-        q.Enqueue(start);
-
-        while (q.Any())
+        // requires ordered monkey list
+        void Calc(List<Monkey> monkeys)
         {
-            var mon = q.Dequeue();
-            if (mon.IsHuman)
-                return true;
-            if (mon.LeftNode != "")
-                q.Enqueue(Monkeys[mon.LeftNode]);
-            if (mon.RightNode != "")
-                q.Enqueue(Monkeys[mon.RightNode]);
+            // calculate all.
+            foreach (var monkey in monkeys)
+            {
+                if (monkey.Operand == ' ')
+                    continue; // nothing to calc.
+                var lm = Monkeys[monkey.LeftNode];
+                var rm = Monkeys[monkey.RightNode];
+
+
+                monkey.Val = monkey.Operand switch
+                {
+                    '*' => lm.Val * rm.Val,
+                    '+' => lm.Val + rm.Val,
+                    '-' => lm.Val - rm.Val,
+                    '/' => lm.Val / rm.Val,
+                    _ => monkey.Val
+                };
+
+            }
         }
-        return false;
-    }
+
+        static bool HasHuman(Monkey start)
+        {
+            Queue<Monkey> q = new Queue<Monkey>();
+            q.Enqueue(start);
+
+            while (q.Any())
+            {
+                var mon = q.Dequeue();
+                if (mon.IsHuman)
+                    return true;
+                if (mon.LeftNode != "")
+                    q.Enqueue(Monkeys[mon.LeftNode]);
+                if (mon.RightNode != "")
+                    q.Enqueue(Monkeys[mon.RightNode]);
+            }
+            return false;
+        }
 
     }
 
-public class Monkey
-{
-    public string Name;
-
-    public string LeftNode;
-    public string RightNode;
-
-    public long Val;
-    public char Operand;
-
-    public bool IsHuman = false;
-
-    public bool IsRoot = false;
-
-    public bool Seen = false;
-
-    public string Print()
+    public class Monkey
     {
+        public string Name;
 
-        return $"{Name} {Val} {LeftNode} {Operand} {RightNode}";
+        public string LeftNode;
+        public string RightNode;
+
+        public long Val;
+        public char Operand;
+
+        public bool IsHuman = false;
+
+        public bool IsRoot = false;
+
+        public bool Seen = false;
+
+        public string Print()
+        {
+
+            return $"{Name} {Val} {LeftNode} {Operand} {RightNode}";
+
+        }
 
     }
-
-}
 
 }
 

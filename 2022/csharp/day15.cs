@@ -1,12 +1,10 @@
 
 using Aoc.Common;
-namespace Aac._2022
+namespace Aoc._2022
 {
-
-    public class Day15 : SolveDay
+    internal class Day15 : SolveDay2022
     {
 
-        public Day15(int year) : base(year) { }
         static List<sensor> sensors = new List<sensor>();
 
 
@@ -53,6 +51,9 @@ namespace Aac._2022
                 sensors.Add(new sensor(p1.x, p1.y, p2.x, p2.y));
             }
         }
+
+        public override bool IsReady() => true;
+
     }
 
     class sensor

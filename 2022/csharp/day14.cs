@@ -1,12 +1,12 @@
 using Aoc.Common;
-namespace Aac._2022 {
-internal class Day14 : SolveDay
+namespace Aoc._2022
 {
-    public Day14(int year) : base(year) {}
-    char[,] cave = new char[1000, 1000];
-    List<List<(int x, int y)>> allPoints = new List<List<(int x, int y)>>();
+    internal class Day14 : SolveDay2022
+    {
+        char[,] cave = new char[1000, 1000];
+        List<List<(int x, int y)>> allPoints = new List<List<(int x, int y)>>();
 
-    int maxY;
+        int maxY;
 
         public override string SolvePart1()
         {
@@ -53,7 +53,7 @@ internal class Day14 : SolveDay
                     starty = 0;
                 }
             }
-            return sand+"";
+            return sand + "";
         }
 
         public override void Setup(bool isPart1)
@@ -81,24 +81,25 @@ internal class Day14 : SolveDay
                 addLine(cave, (0, maxY + 2), (999, maxY + 2));
         }
 
+        public override bool IsReady() => true;
 
- 
 
-    private void addLine(char[,] cave, (int x, int y) from, (int x, int y) to)
-    {
-        // gotta be an easier way
-        int xdir = from.x - to.x == 0 ? 0 : from.x - to.x < 0 ? 1 : -1;
-        int ydir = from.y - to.y == 0 ? 0 : from.y - to.y < 0 ? 1 : -1;
-        while (from.x != to.x || from.y != to.y)
+
+        private void addLine(char[,] cave, (int x, int y) from, (int x, int y) to)
         {
-            cave[from.x, from.y] = '#';
-            from.x += xdir;
-            from.y += ydir;
+            // gotta be an easier way
+            int xdir = from.x - to.x == 0 ? 0 : from.x - to.x < 0 ? 1 : -1;
+            int ydir = from.y - to.y == 0 ? 0 : from.y - to.y < 0 ? 1 : -1;
+            while (from.x != to.x || from.y != to.y)
+            {
+                cave[from.x, from.y] = '#';
+                from.x += xdir;
+                from.y += ydir;
+            }
+            cave[to.x, to.y] = '#';
         }
-        cave[to.x, to.y] = '#';
-    }
 
-     
+
     }
 
 }

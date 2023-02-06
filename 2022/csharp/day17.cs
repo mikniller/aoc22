@@ -2,40 +2,41 @@
 using Aoc.Common;
 using System.Text;
 
-namespace Aac._2022 {
-
-internal class Day17 : SolveDay
+namespace Aoc._2022
 {
-    public Day17(int year) : base(year) {}
 
-    Shape shape1 = new Shape(1, 4, new int[,] { { 1, 1, 1, 1 } });
-    Shape shape2 = new Shape(3, 3, new int[,]{{0,1,0},
+    internal class Day17 : SolveDay2022
+    {
+
+        Shape shape1 = new Shape(1, 4, new int[,] { { 1, 1, 1, 1 } });
+        Shape shape2 = new Shape(3, 3, new int[,]{{0,1,0},
                                                 {1,1,1},
                                                 {0,1,0} });
-    Shape shape3 = new Shape(3, 3, new int[,]{{0,0,1},
+        Shape shape3 = new Shape(3, 3, new int[,]{{0,0,1},
                                                 {0,0,1},
                                                 {1,1,1}});
-    Shape shape4 = new Shape(4, 1, new int[,]{{1},
+        Shape shape4 = new Shape(4, 1, new int[,]{{1},
                                                 {1},
                                                 {1},
                                                 {1}});
 
-    Shape shape5 = new Shape(2, 2, new int[,]{{1,1},
+        Shape shape5 = new Shape(2, 2, new int[,]{{1,1},
                                                 {1,1} });
 
 
-    List<Shape> shapes;
-    List<int> dirs;
-   
+        List<Shape> shapes;
+        List<int> dirs;
+
 
         public override string SolvePart1()
         {
-            return DoSolve(2022) +"";
+            return DoSolve(2022) + "";
         }
 
         public override string SolvePart2()
         {
-            return DoSolve(1000000000000) + "";
+            return "";
+            //return DoSolve(1000000000000) + "";
         }
 
         public override void Setup(bool isPart1)
@@ -44,65 +45,68 @@ internal class Day17 : SolveDay
             shapes = new List<Shape>() { shape1, shape2, shape3, shape4, shape5 };
         }
 
+        public override bool IsReady() => true;
 
-        public  long DoSolve(long runs)
-    {
-        Board b = new Board(7, 1);
 
-        long cnt = 0;
-        int curY = 0;
-        int curX = 2;
-        int gp = 0;
-      
-        while (cnt < runs)
+
+        public long DoSolve(long runs)
         {
-            var next = shapes[(int)(cnt % 5)];
-            cnt++;
+            Board b = new Board(7, 1);
 
-            if(cnt%(1000000000000/1000)==0)
-                Console.Write(".");
+            long cnt = 0;
+            int curY = 0;
+            int curX = 2;
+            int gp = 0;
 
+            while (cnt < runs)
+            {
+                var next = shapes[(int)(cnt % 5)];
+                cnt++;
+
+                if (cnt % (1000000000000 / 1000) == 0)
+                    GetWriter().Write(".");
+
+                b.RemoveFromTop();
+                b.RemoveFromBottom();
+
+                for (int t = 0; t < (3 + next.height); t++)
+                {
+                    b.AddEmptyRow();
+                }
+                curY = 0;
+                curX = 2;
+
+                while (curY < b.height && b.CanPosition(curX, curY, next))
+                {
+                    int movement = dirs[gp % dirs.Count()];
+                    curX += movement;
+
+                    if (b.CanPosition(curX, curY, next) == false)
+                        curX -= dirs[gp % dirs.Count()];
+
+                    curY++;
+                    gp++;
+
+
+                }
+                curY = curY - 1;
+
+
+
+                b.DoPosition(curX, curY, next);
+
+
+
+
+            }
             b.RemoveFromTop();
-            b.RemoveFromBottom();
-         
-            for (int t = 0; t < (3 + next.height); t++)
-            {
-                b.AddEmptyRow();
-            }
-            curY = 0;
-            curX = 2;
 
-            while (curY < b.height &&  b.CanPosition(curX, curY, next))
-            {
-                int movement = dirs[gp % dirs.Count()];
-                curX += movement;
 
-                if (b.CanPosition(curX, curY, next) == false)
-                    curX -= dirs[gp % dirs.Count()];
-
-                curY++;
-                gp++;
-             
-
-            }
-            curY = curY - 1;
-
-            
-            
-            b.DoPosition(curX, curY, next);
-
-         
-           
+            return b.height + b.removed;
 
         }
-        b.RemoveFromTop();
 
 
-        return b.height + b.removed;
-
-    }
-
-      
     }
 
     public class Board
@@ -204,7 +208,7 @@ internal class Day17 : SolveDay
 
         }
 
-        public void printLine(int from, int to, int shapeX, int shapeY, Shape p)
+        public void printLine(int from, int to, int shapeX, int shapeY, Shape p, Writer writer)
         {
             StringBuilder builder = new StringBuilder();
             for (int y = from; y < to; y++)
@@ -222,42 +226,42 @@ internal class Day17 : SolveDay
 
                 }
             }
-            Console.WriteLine(builder);
+            writer.WriteLine(builder.ToString());
 
         }
     }
 
 
 
-public class Shape
-{
-    public int height;
-    public int width;
-
-    public int[,] pattern;
-
-    public Shape(int h, int w, int[,] p)
+    public class Shape
     {
-        pattern = p;
-        height = h;
-        width = w;
-    }
+        public int height;
+        public int width;
 
-    public bool isSet(int x, int y)
-    {
-        if (y >= height || x >= width || y < 0 || x < 0)
-            return false;
-        return pattern[y, x] == 1;
-    }
+        public int[,] pattern;
 
-    public int Val(int x, int y)
-    {
-        if (y >= height || x >= width || y < 0 || x < 0)
-            return 0;
-        return pattern[y, x];
-    }
+        public Shape(int h, int w, int[,] p)
+        {
+            pattern = p;
+            height = h;
+            width = w;
+        }
 
-}
+        public bool isSet(int x, int y)
+        {
+            if (y >= height || x >= width || y < 0 || x < 0)
+                return false;
+            return pattern[y, x] == 1;
+        }
+
+        public int Val(int x, int y)
+        {
+            if (y >= height || x >= width || y < 0 || x < 0)
+                return 0;
+            return pattern[y, x];
+        }
+
+    }
 
 
 

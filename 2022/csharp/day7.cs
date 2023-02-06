@@ -1,13 +1,10 @@
 using System.Text.RegularExpressions;
 using Aoc.Common;
-namespace Aac._2022
+namespace Aoc._2022
 {
-    internal class Day7 : SolveDay
+    internal class Day7 : SolveDay2022
     {
-        public Day7(int year) : base(year) { }
-
         Node start = new Node("root", null);
-
 
         public override string SolvePart1()
         {
@@ -57,6 +54,8 @@ namespace Aac._2022
             start.calcSize();
 
         }
+
+        public override bool IsReady() => true;
 
     }
 

@@ -1,91 +1,12 @@
 using System.Text;
 using Aoc.Common;
 
-namespace Aac._2022
+namespace Aoc._2022
 {
-    class Elf
+
+
+    internal class Day23 : SolveDay2022
     {
-        public string name;
-
-        public int x;
-
-        public int y;
-
-        public bool hasProposed = false;
-
-        public static bool IsTaken(int x, int y, List<Elf> field)
-        {
-            return field.Any(f => f.x == x && f.y == y);
-        }
-
-        public static bool IsTaken(Elf e, int y, List<Elf> field)
-        {
-            return IsTaken(e.x, e.y, field);
-        }
-
-        public bool CanMoveNorth(List<Elf> field)
-        {
-            if (
-                Elf.IsTaken(x, y - 1, field) == false &&
-                Elf.IsTaken(x - 1, y - 1, field) == false &&
-                Elf.IsTaken(x + 1, y - 1, field) == false
-            ) return true;
-            return false;
-        }
-
-        public bool CanMoveSouth(List<Elf> field)
-        {
-            if (
-                Elf.IsTaken(x, y + 1, field) == false &&
-                Elf.IsTaken(x - 1, y + 1, field) == false &&
-                Elf.IsTaken(x + 1, y + 1, field) == false
-            ) return true;
-            return false;
-        }
-
-        public bool CanMoveWest(List<Elf> field)
-        {
-            if (
-                Elf.IsTaken(x - 1, y, field) == false &&
-                Elf.IsTaken(x - 1, y - 1, field) == false &&
-                Elf.IsTaken(x - 1, y + 1, field) == false
-            ) return true;
-            return false;
-        }
-
-        public bool CanMoveEast(List<Elf> field)
-        {
-            if (
-                Elf.IsTaken(x + 1, y - 1, field) == false &&
-                Elf.IsTaken(x + 1, y, field) == false &&
-                Elf.IsTaken(x + 1, y + 1, field) == false
-            ) return true;
-            return false;
-        }
-
-        public bool HasNeighbor(List<Elf> field)
-        {
-            for (int fy = -1; fy <= 1; fy++)
-            {
-                for (int fx = -1; fx <= 1; fx++)
-                {
-                    if (
-                        (fx == 0 && fy == 0) == false &&
-                        Elf.IsTaken(x + fx, y + fy, field)
-                    ) return true;
-                }
-            }
-            return false;
-        }
-    }
-
-    internal class Day23 : SolveDay
-    {
-        public Day23(int year) :
-            base(year)
-        {
-        }
-
         int minX() => field.Min(f => f.x);
 
         int maxX() => field.Max(f => f.x);
@@ -96,34 +17,11 @@ namespace Aac._2022
 
         char[] dirs = { 'N', 'S', 'W', 'E' };
 
-        Dictionary<(int x, int y), List<Elf>>
-            proposed = new Dictionary<(int x, int y), List<Elf>>();
+        Dictionary<(int x, int y), List<Elf>> proposed = new Dictionary<(int x, int y), List<Elf>>();
 
         private List<Elf> field;
 
-        public override void Setup(bool isp1)
-        {
-            field = new List<Elf>();
-            List<string> lines = _content;
 
-            int y = 0;
-            int cnt = 0;
-
-            foreach (var l in lines)
-            {
-                for (int x = 0; x < l.Length; x++)
-                {
-                    if (l[x] == '#')
-                    {
-                        field
-                            .Add(new Elf()
-                            { x = x, y = y, name = $"Elf_{x}_{y}" });
-                        cnt++;
-                    }
-                }
-                y++;
-            }
-        }
 
         public override string SolvePart1()
         {
@@ -132,7 +30,7 @@ namespace Aac._2022
             for (int i = 0; i < 10; i++)
             {
                 curDir = (curDir + 1) % 4;
-                moveElves (curDir);
+                moveElves(curDir);
             }
             int cnt = 0;
 
@@ -153,11 +51,36 @@ namespace Aac._2022
             {
                 int cnt = moveElves(i % 4);
                 i++;
-                Console.WriteLine($"Move {i} gave {cnt}");
+                GetWriter().WriteLine($"Move {i} gave {cnt}");
                 if (cnt == 0) break;
             }
             return i + "";
         }
+
+        public override void Setup(bool isp1)
+        {
+            field = new List<Elf>();
+
+            int y = 0;
+            int cnt = 0;
+
+            foreach (var l in _lines)
+            {
+                for (int x = 0; x < l.Length; x++)
+                {
+                    if (l[x] == '#')
+                    {
+                        field
+                            .Add(new Elf()
+                            { x = x, y = y, name = $"Elf_{x}_{y}" });
+                        cnt++;
+                    }
+                }
+                y++;
+            }
+        }
+
+        public override bool IsReady() => true;
 
         public int moveElves(int curDir)
         {
@@ -236,11 +159,87 @@ namespace Aac._2022
                 {
                     var f = field.FirstOrDefault(f => f.x == x && f.y == y);
                     char c = f == null ? '.' : '#';
-                    builder.Append (c);
+                    builder.Append(c);
                 }
                 builder.AppendLine();
             }
-            Console.WriteLine(builder.ToString());
+            GetWriter().WriteLine(builder.ToString());
+        }
+    }
+
+    class Elf
+    {
+        public string name;
+
+        public int x;
+
+        public int y;
+
+        public bool hasProposed = false;
+
+        public static bool IsTaken(int x, int y, List<Elf> field)
+        {
+            return field.Any(f => f.x == x && f.y == y);
+        }
+
+        public static bool IsTaken(Elf e, int y, List<Elf> field)
+        {
+            return IsTaken(e.x, e.y, field);
+        }
+
+        public bool CanMoveNorth(List<Elf> field)
+        {
+            if (
+                Elf.IsTaken(x, y - 1, field) == false &&
+                Elf.IsTaken(x - 1, y - 1, field) == false &&
+                Elf.IsTaken(x + 1, y - 1, field) == false
+            ) return true;
+            return false;
+        }
+
+        public bool CanMoveSouth(List<Elf> field)
+        {
+            if (
+                Elf.IsTaken(x, y + 1, field) == false &&
+                Elf.IsTaken(x - 1, y + 1, field) == false &&
+                Elf.IsTaken(x + 1, y + 1, field) == false
+            ) return true;
+            return false;
+        }
+
+        public bool CanMoveWest(List<Elf> field)
+        {
+            if (
+                Elf.IsTaken(x - 1, y, field) == false &&
+                Elf.IsTaken(x - 1, y - 1, field) == false &&
+                Elf.IsTaken(x - 1, y + 1, field) == false
+            ) return true;
+            return false;
+        }
+
+        public bool CanMoveEast(List<Elf> field)
+        {
+            if (
+                Elf.IsTaken(x + 1, y - 1, field) == false &&
+                Elf.IsTaken(x + 1, y, field) == false &&
+                Elf.IsTaken(x + 1, y + 1, field) == false
+            ) return true;
+            return false;
+        }
+
+        public bool HasNeighbor(List<Elf> field)
+        {
+            for (int fy = -1; fy <= 1; fy++)
+            {
+                for (int fx = -1; fx <= 1; fx++)
+                {
+                    if (
+                        (fx == 0 && fy == 0) == false &&
+                        Elf.IsTaken(x + fx, y + fy, field)
+                    ) return true;
+                }
+            }
+            return false;
         }
     }
 }
