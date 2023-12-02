@@ -5,7 +5,7 @@ namespace Aoc.Common
     public abstract class SolveDay
     {
         protected bool WriteEnabled = true;
-        protected readonly int _year = 2022;
+        protected readonly int _year = 2023;
         protected Writer _writer = new NullWriter();
 
         protected Writer GetWriter()

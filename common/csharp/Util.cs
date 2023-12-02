@@ -6,7 +6,7 @@ namespace Aoc.Common
 
     public static class Util
     {
-        public const string BasePath = @"d:\dev\aoc\";
+        public const string BasePath = @"c:\dev\aoc22\";
 
         public static void Run(int day, int year, bool isSample,int runs,Writer writer)
         {
@@ -36,7 +36,10 @@ namespace Aoc.Common
         } 
         public static List<string> ReadFile(string fileName,int year, bool skipBlankLines = false, bool consoleOut = false)
         {
+            Console.WriteLine($"looking for {BasePath}\\{year}\\data\\{fileName}");
+            
             var lines = File.ReadLines($"{BasePath}\\{year}\\data\\{fileName}").ToList();
+
 
             if (skipBlankLines)
             {
@@ -96,6 +99,25 @@ namespace Aoc.Common
             return result;
         }
 
+        public static List<int> FindSubStringPositions(string input, string subString) {
+            List<int> indexes = new List<int>();
+            int index = input.IndexOf(subString);
+        
+            while (index != -1)
+            {
+                indexes.Add(index);
+                index = input.IndexOf(subString, index + 1);
+            }
+        
+            return indexes;
+        }
+
+         public static (T?,T?) FirstAndLast<T>(List<T> ts) {
+            if(ts.Any())
+                return (ts.First(),ts.Last());
+            return (default(T),default(T));     
+        }
+
         public static Dictionary<(int, int), SolveDay> Solvers = new Dictionary<(int, int), SolveDay>() {
             { (1,2021), new Aoc._2021.Day1() },
             { (2,2021), new Aoc._2021.Day2() },
@@ -148,7 +170,36 @@ namespace Aoc.Common
             { (22,2022), new Aoc._2022.Day22() },
             { (23,2022), new Aoc._2022.Day23() },
             { (24,2022), new Aoc._2022.Day24() },
-            { (25,2022), new Aoc._2022.Day25() }
+            { (25,2022), new Aoc._2022.Day25() },
+
+
+            { (1,2023), new Aoc._2023.Day1() },
+            { (2,2023), new Aoc._2023.Day2() },
+            { (3,2023), new Aoc._2023.Day3() },
+            { (4,2023), new Aoc._2023.Day4() },
+            { (5,2023), new Aoc._2023.Day5() },
+            { (6,2023), new Aoc._2023.Day6() },
+            { (7,2023), new Aoc._2023.Day7() },
+            { (8,2023), new Aoc._2023.Day8() },
+            { (9,2023), new Aoc._2023.Day9() },
+            { (10,2023), new Aoc._2023.Day10() },
+            { (11,2023), new Aoc._2023.Day11() },
+            { (12,2023), new Aoc._2023.Day12() },
+            { (13,2023), new Aoc._2023.Day13() },
+            { (14,2023), new Aoc._2023.Day14() },
+            { (15,2023), new Aoc._2023.Day15() },
+            { (16,2023), new Aoc._2023.Day16() },
+            { (17,2023), new Aoc._2023.Day17() },
+            { (18,2023), new Aoc._2023.Day18() },
+            { (19,2023), new Aoc._2023.Day19() },
+            { (20,2023), new Aoc._2023.Day20() },
+            { (21,2023), new Aoc._2023.Day21() },
+            { (22,2023), new Aoc._2023.Day22() },
+            { (23,2023), new Aoc._2023.Day23() },
+            { (24,2023), new Aoc._2023.Day24() },
+            { (25,2023), new Aoc._2023.Day25() }
+
+
         };
 
 
